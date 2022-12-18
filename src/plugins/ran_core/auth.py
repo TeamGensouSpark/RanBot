@@ -10,12 +10,17 @@ from .utils import exgroupid
 async def checkauth(event:MessageEvent):
     return exgroupid(event.get_session_id()) not in jdb.getTable("auth")["auth_session"]
 
+async def checkblock(event:MessageEvent):
+    return event.get_user_id() in jdb.getTable("auth")["userblock"]
 
 authblock=on_message(rule=checkauth,priority=2,block=True)
+userblock=on_message(rule=checkblock,priority=2,block=True)
 
 
+@userblock.handle()
+async def handle():pass
 @authblock.handle()
-async def handle(matcher: Matcher,event:MessageEvent):pass
+async def handle():pass
 
 auth=on_command(cmd="auth",aliases={"授权"},rule=to_me(),priority=1,permission=SUPERUSER)
 @auth.got("confirm",prompt="确定授权吗(Y/N)")
@@ -26,8 +31,15 @@ async def gotarg(matcher: Matcher,event:MessageEvent,confirm=ArgPlainText("confi
         jdb.updateTable(table)
         await auth.finish("授权成功")
     else:
-        await auth.finish("已取消") 
-
+        await auth.finish("已取消")
+        
+blockuser=on_command(cmd="blockuser",aliases={"屏蔽用户"},rule=to_me(),priority=1,permission=SUPERUSER)
+@blockuser.got("user",prompt="输入目标用户")
+async def handle(matcher: Matcher,event:MessageEvent,user=ArgPlainText("user")):
+    table=jdb.getTable("auth")
+    table["userblock"].append(user)
+    jdb.updateTable(table)
+    await auth.finish(f"已屏蔽用户{user}")
 
 unauth=on_command(cmd="unauth",aliases={"取消授权"},rule=to_me(),priority=1,permission=SUPERUSER)
 @unauth.handle()

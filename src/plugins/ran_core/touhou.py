@@ -98,7 +98,8 @@ async def get_redirect_url(id):
         
 #touhouapi="https://img.paulzzh.tech/touhou/random"
 LOLICONAPI="https://api.lolicon.app/setu/v2"
-randomtouhou=on_command("randomtouhou",aliases={"随机东方",},rule=to_me())
+from nonebot.permission import SUPERUSER
+randomtouhou=on_command("randomtouhou",aliases={"随机东方",},rule=to_me(),permission=SUPERUSER)
 #@randomtouhou.handle()
 #async def rthih(match:Matcher,Args:Message=CommandArg()):
 #    async with aiohttp.ClientSession() as Session:

@@ -21,4 +21,5 @@ if not jdb.hasTable("auth"):
     jdb.createTable("auth")
     table=jdb.getTable("auth")
     table.setkey("auth_session",[])
+    table.setkey("userblock",[])
     jdb.updateTable(table)
