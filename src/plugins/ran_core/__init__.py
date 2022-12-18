@@ -1,11 +1,7 @@
 from nonebot import get_driver
-from Remilia.jsondb import db
-from Remilia.lite.LiteResource import Path
 from os import makedirs
-from . import utils
-
-resourcePath=Path("src/resources/ran_core/")
-cachePath=Path("cache/")
+from . import utils,auth,setu
+from .env import resourcePath,cachePath,jdb
 
 if not resourcePath.isexist:
     makedirs(resourcePath.abspath)
@@ -13,8 +9,10 @@ if not resourcePath.isexist:
 if not cachePath.isexist:
     makedirs(cachePath.abspath)
 
-
 global_config = get_driver().config
 
-jdb=db.JsonDB(db.File(resourcePath.abspath+"/botdb.json"),dbname="bot")
-
+if not jdb.hasTable("auth"):
+    jdb.createTable("auth")
+    table=jdb.getTable("auth")
+    table.setkey("auth_session",[])
+    jdb.updateTable(table)
