@@ -14,5 +14,8 @@ def convImg(raw:str):
 
 def exgroupid(session_id:str):
     temp=session_id.split("_")
-    temp.pop(-1)
-    return "_".join(temp)
+    if len(temp) == 1:
+        return temp
+    else:
+        temp.pop(-1)
+        return "_".join(temp)

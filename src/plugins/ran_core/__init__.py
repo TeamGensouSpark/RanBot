@@ -1,7 +1,13 @@
 from nonebot import get_driver
 from os import makedirs
-from . import utils,auth,setu
 from .env import resourcePath,cachePath,jdb
+from . import (
+    utils,
+    auth,
+    setu,
+    touhou,
+    divination
+    )
 
 if not resourcePath.isexist:
     makedirs(resourcePath.abspath)
