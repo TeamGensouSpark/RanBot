@@ -4,8 +4,9 @@
 </div>
 <div align=center>
   <img src="https://img.shields.io/badge/python-3.8+-blue" alt="python">
-  <img src="https://img.shields.io/badge/nonebot-2b1-red" alt="nonebot">
+  <img src="https://img.shields.io/badge/nonebot-2-red" alt="nonebot">
 </div>
+
 
 
 
