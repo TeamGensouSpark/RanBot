@@ -1,0 +1,1 @@
+jdbpath="src/resources/ran_core/botdb.json"

@@ -1,0 +1,5 @@
+Remilia
+aiohttp
+lxml
+nb-cli
+nonebot-adapter-onebot

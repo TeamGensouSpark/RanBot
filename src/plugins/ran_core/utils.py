@@ -1,5 +1,5 @@
 import re
-
+from nonebot.adapters.onebot.v11 import MessageEvent
 def convImg(raw:str):
     from nonebot.adapters.onebot.v11 import MessageSegment,Message
     if re.search(r"\[CQ:image,file.*]",raw):
@@ -19,3 +19,6 @@ def exgroupid(session_id:str):
     else:
         temp.pop(-1)
         return "_".join(temp)
+    
+def getex_session_id(event:MessageEvent):
+    return exgroupid(event.get_session_id())

@@ -23,3 +23,4 @@ if not jdb.hasTable("auth"):
     table.setkey("auth_session",[])
     table.setkey("userblock",[])
     jdb.updateTable(table)
+    jdb.createTable("doujinstyle")

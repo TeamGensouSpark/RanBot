@@ -8,7 +8,7 @@ from nonebot.adapters.onebot.v11 import MessageSegment,MessageEvent
 import aiohttp,re,json,os
 from urllib.parse import quote
 from lxml.html import fromstring
-
+from .env import jdb
 thmc_site="https://doujinstyle.com"
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'}
 

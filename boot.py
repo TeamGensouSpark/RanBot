@@ -1,4 +1,4 @@
-from ran_libs import ran_utils
+from libs import ran_utils
 from multiprocessing import Process
 
 if __name__ == "__main__":

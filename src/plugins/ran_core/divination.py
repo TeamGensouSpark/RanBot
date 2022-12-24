@@ -94,7 +94,6 @@ introduce='''
 要事先提醒的是，对被弹幕击中
 所造成的伤害这边不承担任何责任。
 请千万要在自己承担责任的前提下被击中。
-下面开始进行介绍。
 '''
 from nonebot import on_command
 from nonebot.rule import to_me
