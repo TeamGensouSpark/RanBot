@@ -7,6 +7,12 @@ from nonebot.permission import SUPERUSER
 from .env import jdb
 from .utils import exgroupid
 
+
+if not jdb.hasTable("auth"):
+    jdb.createTable("auth")
+    jdb.getTable("auth").setkey("auth_session",[]).setkey("userblock",[]).sync()
+
+
 async def checkauth(event:MessageEvent):
     return exgroupid(event.get_session_id()) not in jdb.getTable("auth")["auth_session"]
 

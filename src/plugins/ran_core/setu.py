@@ -31,3 +31,19 @@ async def handle(match:Matcher,Args:Message=CommandArg()):
                 await setu.finish("标题：%s\n作者：%s\nPID：%s\n" % (imageCon["data"][0]["title"],imageCon["data"][0]["author"],imageCon["data"][0]["pid"])+MessageSegment.image(file=imageCon["data"][0]["urls"]["regular"]))
             else:
                 await setu.finish("没有找到符合条件的图...")
+#touhouapi="https://img.paulzzh.tech/touhou/random"
+LOLICONAPI="https://api.lolicon.app/setu/v2"
+from nonebot.permission import SUPERUSER
+randomtouhou=on_command("randomtouhou",aliases={"随机东方",},rule=to_me(),permission=SUPERUSER)
+#@randomtouhou.handle()
+#async def rthih(match:Matcher,Args:Message=CommandArg()):
+#    async with aiohttp.ClientSession() as Session:
+#        async with Session.get(touhouapi,headers=headers,allow_redirects=False) as resp:
+#            await randomtouhou.finish(MessageSegment.image(file=resp.headers.get('Location')))
+
+@randomtouhou.handle()
+async def rthihllc(match:Matcher,Args:Message=CommandArg()):
+    async with aiohttp.ClientSession() as Session:
+        async with Session.get("%s?r18=0&tag=東方Project|touhou|东方project&size=regular"%LOLICONAPI,headers=headers,allow_redirects=False) as resp:
+            imageCon=json.loads(await resp.text())
+            await randomtouhou.finish("标题：%s\n作者：%s\nPID：%s\n" % (imageCon["data"][0]["title"],imageCon["data"][0]["author"],imageCon["data"][0]["pid"])+MessageSegment.image(file=imageCon["data"][0]["urls"]["regular"]))

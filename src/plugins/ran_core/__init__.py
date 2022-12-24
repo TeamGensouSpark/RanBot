@@ -2,11 +2,13 @@ from nonebot import get_driver
 from os import makedirs
 from .env import resourcePath,cachePath,jdb
 from . import (
+    doujinstyle,
     utils,
     auth,
     setu,
-    touhou,
-    divination
+    divination,
+    loghelper,
+    API,
     )
 
 if not resourcePath.isexist:
@@ -16,11 +18,3 @@ if not cachePath.isexist:
     makedirs(cachePath.abspath)
 
 global_config = get_driver().config
-
-if not jdb.hasTable("auth"):
-    jdb.createTable("auth")
-    table=jdb.getTable("auth")
-    table.setkey("auth_session",[])
-    table.setkey("userblock",[])
-    jdb.updateTable(table)
-    jdb.createTable("doujinstyle")
