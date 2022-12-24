@@ -1,5 +1,6 @@
 from ..env import app,bot
 from pydantic import BaseModel
+from fastapi import Response
 from nonebot.adapters.onebot.v11 import Bot
 from typing import Optional
 class ApiArgs(BaseModel):
@@ -15,6 +16,6 @@ async def apihandle(args:ApiArgs):
             await bot().send_private_msg(user_id=args.user_id,message=args.message,auto_escape=False)
         else:
             await bot().send_group_msg(group_id=args.group_id,message=args.message,auto_escape=False)
-        return "success"
+        return Response(f"post msg success")
     except Exception as e:
         return e
