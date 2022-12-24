@@ -12,9 +12,13 @@
 
 ### 蓝Bot
 
+---
+
 W.I.P
 
 ### 实现功能
+
+---
 
 + Bot相关
   + [x] 权限系统，拉黑屏蔽
@@ -23,7 +27,6 @@ W.I.P
 + 命令行相关
   + [x] 使用终端控制Bot发送消息
   + [x] 可扩展式命令系统 
----
 
 ### 演示
 
@@ -57,6 +60,10 @@ pip install -r requirements.txt # 安装python依赖
 python ./boot.py # 启动bot！
 ```
 
-
 ### 感谢项目
+
+---
+
+[イメチェン藍しゃま!](https://www.pixiv.net/artworks/96478101) ：标题插画
+
 [CirnoBot](https://github.com/summerkirakira/CirnoBot) ：README模板
