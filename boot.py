@@ -14,4 +14,4 @@ if __name__ == "__main__":
             pass
 
     while True:
-        ran_utils.commands.Command_parser(input(""))
+        ran_utils.commands.Command_parser(input())
