@@ -1,6 +1,7 @@
 import re
 from nonebot.adapters.onebot.v11 import MessageEvent
 from nonebot import get_driver
+
 global_config = get_driver().config
 
 def convImg(raw:str):

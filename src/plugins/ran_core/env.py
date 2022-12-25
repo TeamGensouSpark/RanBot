@@ -13,6 +13,8 @@ verify_ssl=get_config("verify_ssl",False)
 app=get_app()
 resourcePath=Path(get_config("resourcePath","src/resources/ran_core/"))
 cachePath=Path(get_config("cachePath","cache/"))
+import os
+print(os.getcwd(),os.listdir())
 jdb=db.JsonDB(db.File(resourcePath.abspath+"/botdb.json"),dbname="bot")
 
 def bot() -> Bot:
