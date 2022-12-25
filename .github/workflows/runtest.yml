@@ -25,4 +25,4 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
         pip install nonebug pytest-asyncio
-        python ./pytest.py
+        python ./bottest.py
