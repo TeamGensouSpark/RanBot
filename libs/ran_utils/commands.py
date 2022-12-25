@@ -63,10 +63,12 @@ class Command_parser(CommandClass):
         print("start successfully")
     def start(self):
         pass
-    
-    def post(self,url,data):
+    def post(self,url,post_type,data):
         data=typedet(data,False)
-        rep=requests.post(url,data=json.dumps(data))
+        if post_type=="data":
+            rep=requests.post(url,data=json.dumps(data))
+        else:
+            rep=requests.post(url,data=json.dumps(data))
         print(rep.text)
         
     class jdb(CommandClass):

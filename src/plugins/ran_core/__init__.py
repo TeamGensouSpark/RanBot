@@ -9,6 +9,7 @@ from . import (
     divination,
     loghelper,
     API,
+    music163,
     )
 
 if not resourcePath.isexist:
@@ -16,5 +17,3 @@ if not resourcePath.isexist:
 
 if not cachePath.isexist:
     makedirs(cachePath.abspath)
-
-global_config = get_driver().config
