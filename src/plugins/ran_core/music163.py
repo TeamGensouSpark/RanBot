@@ -4,6 +4,7 @@ from nonebot.matcher import Matcher
 from nonebot.adapters import Message
 from nonebot.params import CommandArg, ArgPlainText
 from nonebot.adapters.onebot.v11 import MessageSegment
+from nonebot.log import logger
 import aiohttp
 from json import loads
 from .env import music163api,realip,verify_ssl
@@ -23,6 +24,8 @@ async def handle(matcher:Matcher,args:Message=CommandArg()):
 @picksong.got("kw","输入搜索歌名")
 async def got(args:str=ArgPlainText("kw")):
     searchdict=loads(await get_searchtext(args))
+    if searchdict["result"]["songCount"] == 0:
+        await picksong.finish("未找到相关歌曲")
     resongid=searchdict["result"]["songs"][0]["id"]
     songdict=loads(await get_songdetail(resongid))
     resongdt=songdict["songs"][0]
@@ -40,6 +43,7 @@ async def got(args:str=ArgPlainText("kw")):
     )
 
 async def get_songdetail(ids:str):
+    logger.info("with id %s"%ids)
     postjson={
         "realIP":realip,
         "ids":str(ids)
@@ -48,6 +52,7 @@ async def get_songdetail(ids:str):
         return await resp.text()
 
 async def get_searchtext(kw:str) -> str:
+    logger.info("start search with kw %s"%kw)
     postjson={
         "realIP":realip,
         "keywords":kw
