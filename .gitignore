@@ -148,3 +148,5 @@ go-cqhttp.exe
 session.token
 data
 
+go-cqhttp_windows_386.exe
+.env.dev
