@@ -2,30 +2,33 @@ import aiohttp
 from typing import List
 from nonebot.log import logger
 
-from ..model import GetSetuConfig,FinishSetuData
+from ..model import FinishSetuData, GetSetuConfig
 from ...utils import get_config
 nginxproxy=get_config("nginxproxy","i.pixiv.re")
 
-class Yuban:
+class Lolicon:
     def __init__(self, config: GetSetuConfig):
         self.config = config
 
     async def get(self) -> List[FinishSetuData]:
         try:
+            # with httpx.Client() as client:
             async with aiohttp.ClientSession() as Session:
-                async with Session.get(
-                    url="https://setu.yuban10703.xyz/setu",
-                    params={
+                async with Session.post(
+                    url="https://api.lolicon.app/setu/v2",
+                    json={
                         "r18": self.config.level,
                         "num": self.config.toGetNum - self.config.doneNum,
-                        "tags": self.config.tags,
+                        "tag": self.config.tags,
+                        "size": ["original", "regular", "small"],
+                        "proxy": False,
                     },
                     timeout=8,
                 ) as resp:
                     resjson=await resp.json()
                     res_code=resp.status
         except Exception as e:
-            logger.warning("YubanAPI:\r\n{}".format(e))
+            logger.warning("Lolicon:\r\n{}".format(e))
             return []
         if res_code == 200:
             dataList = []
@@ -33,16 +36,16 @@ class Yuban:
             for d in datas:
                 dataList.append(
                     FinishSetuData(
-                        title=d["artwork"]["title"],
-                        picID=d["artwork"]["id"],
-                        picWebUrl="www.pixiv.net/artworks/" + str(d["artwork"]["id"]),
-                        page=d["page"],
-                        author=d["author"]["name"],
-                        authorID=d["author"]["id"],
-                        authorWebUrl="www.pixiv.net/users/" + str(d["author"]["id"]),
+                        title=d["title"],
+                        picID=d["pid"],
+                        picWebUrl="www.pixiv.net/artworks/" + str(d["pid"]),
+                        page=d["p"],
+                        author=d["author"],
+                        authorID=d["uid"],
+                        authorWebUrl="www.pixiv.net/users/" + str(d["uid"]),
                         picOriginalUrl=d["urls"]["original"],
-                        picLargeUrl=d["urls"]["large"].replace("_webp", ""),
-                        picMediumUrl=d["urls"]["medium"].replace("_webp", ""),
+                        picLargeUrl=d["urls"]["regular"],
+                        picMediumUrl=d["urls"]["small"],
                         picOriginalUrl_Msg=d["urls"]["original"].replace(
                             "i.pximg.net", nginxproxy
                         ),

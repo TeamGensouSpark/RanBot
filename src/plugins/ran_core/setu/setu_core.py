@@ -3,7 +3,7 @@ from nonebot.adapters.onebot.v11 import Message,MessageSegment,MessageEvent,Bot,
 from typing import List
 
 from .model import GetSetuConfig,FinishSetuData
-from .setuapis import Yuban
+from .setuapis import Yuban,Lolicon,Pixiv
 from ..utils import get_config,custom_forward_msg
 
 
@@ -17,16 +17,15 @@ async def Setu(event:GroupMessageEvent or MessageEvent, bot: Bot, config:GetSetu
         return
     if setuapi=="yuban":
         setuall=await Yuban(config).main()
-        if not setuall:
-            if isinstance(event,GroupMessageEvent):
-                await bot.send_group_msg(group_id=event.group_id,message="没有这种东西")
-                return
-            else:
-                await bot.send_private_msg(user_id=event.user_id,message="没有这种东西")
-                return
+    elif setuapi == "lolicon":
+        setuall=await Lolicon(config).main()
+    elif setuapi == "pixiv":
+        setuall=await Pixiv(config).main()
     else:
-        setuall=None
-    if setuall:
+        setuall="$API ERROR"
+    if not await checkres(bot,event,setuall):
+        return
+    if setuall != "$API ERROR":
         setumessage=buildMessage(setuall)
         if isinstance(event,GroupMessageEvent):
             await bot.send_group_forward_msg(group_id=event.group_id,messages=custom_forward_msg(
@@ -43,3 +42,13 @@ async def Setu(event:GroupMessageEvent or MessageEvent, bot: Bot, config:GetSetu
 
 def buildMessage(datalist:List[FinishSetuData]) -> List[MessageSegment]:
     return [MessageSegment.image(file=data.picLargeUrl.replace("i.pximg.net","i.pixiv.re"))+"\ntitle:%s(%s)\nauthor:%s(%s)\ntags:%s"%(data.title,data.picWebUrl,data.author,data.authorWebUrl,data.tags) for data in datalist]
+
+async def checkres(bot:Bot,event:MessageEvent,setuall):
+    if not setuall:
+        if isinstance(event,GroupMessageEvent):
+            await bot.send_group_msg(group_id=event.group_id,message="没有这种东西")
+            return False
+        else:
+            await bot.send_private_msg(user_id=event.user_id,message="没有这种东西")
+            return False
+    return True
