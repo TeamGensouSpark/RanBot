@@ -24,7 +24,7 @@ async def handle(matcher:Matcher,args:Message=CommandArg()):
 @picksong.got("kw","输入搜索歌名")
 async def got(args:str=ArgPlainText("kw")):
     searchdict=loads(await get_searchtext(args))
-    if searchdict["result"]["songCount"] == 0:
+    if not searchdict["result"].__contains__("songs"):
         await picksong.finish("未找到相关歌曲")
     resongid=searchdict["result"]["songs"][0]["id"]
     songdict=loads(await get_songdetail(resongid))
