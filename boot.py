@@ -1,5 +1,12 @@
 from libs import ran_utils
 from multiprocessing import Process
+import os
+import importlib
+
+
+for path,name in zip(["./libs/ext/"+_ for _ in os.listdir("libs/ext")],[_ for _ in os.listdir("libs/ext")]):
+    importlib.import_module(f".ext.{name}",package="libs")
+    print(f"import ext: {path} as success")
 
 if __name__ == "__main__":
     botProcess=Process(target=ran_utils.process_handle.Process,args=("nb run",))
