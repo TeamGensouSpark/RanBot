@@ -8,8 +8,9 @@ from nonebot.typing import T_State
 
 from .model import GetSetuConfig
 from .setu_core import Setu
+from ..utils import get_config
 
-
+maxpicnum=get_config("maxpicnum",5)
 
 digitalConversionDict = {
     "一": 1,
@@ -47,4 +48,7 @@ async def handle(bot: Bot, event: MessageEvent, state: T_State = StateParam()):
         config_getSetu.level = 1
     else:
         config_getSetu.level = 0
-    await Setu(event, bot, config_getSetu)
+    if config_getSetu.toGetNum > maxpicnum:
+        await callsetu.finish(f"最大图片数量不能超过{maxpicnum}")
+    else:
+        await Setu(event, bot, config_getSetu)
