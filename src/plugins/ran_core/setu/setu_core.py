@@ -28,20 +28,26 @@ async def Setu(event:GroupMessageEvent or MessageEvent, bot: Bot, config:GetSetu
     if setuall != "$API ERROR":
         setumessage=buildMessage(setuall)
         if isinstance(event,GroupMessageEvent):
-            await bot.send_group_forward_msg(group_id=event.group_id,messages=custom_forward_msg(
+            await bot.send_group_forward_msg(
+                group_id=event.group_id,
+                messages=custom_forward_msg(
                 setumessage,
                 bot.self_id
-            ))
+                )
+            )
         else:
-            await bot.send_private_forward_msg(user_id=event.user_id,messages=custom_forward_msg(
+            await bot.send_private_forward_msg(
+                user_id=event.user_id,
+                messages=custom_forward_msg(
                 setumessage,
                 bot.self_id
-            ))
+                )
+            )
     else:
         await bot.send(event,"错误的API配置")
 
 def buildMessage(datalist:List[FinishSetuData]) -> List[MessageSegment]:
-    return [MessageSegment.image(file=data.picLargeUrl.replace("i.pximg.net","i.pixiv.re"))+"\ntitle:%s(%s)\nauthor:%s(%s)\ntags:%s"%(data.title,data.picWebUrl,data.author,data.authorWebUrl,data.tags) for data in datalist]
+    return [MessageSegment.image(file=data.picLargeUrl.replace("i.pximg.net","i.pixiv.re"))+"\ntitle:%s(%s)\nauthor:%s(%s)\ntags:%s"%(data.title,data.picID,data.author,data.authorID,data.tags) for data in datalist]
 
 async def checkres(bot:Bot,event:MessageEvent,setuall):
     if not setuall:
