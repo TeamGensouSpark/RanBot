@@ -20,8 +20,10 @@ async def Setu(event:GroupMessageEvent or MessageEvent, bot: Bot, config:GetSetu
         if not setuall:
             if isinstance(event,GroupMessageEvent):
                 await bot.send_group_msg(group_id=event.group_id,message="没有这种东西")
+                return
             else:
                 await bot.send_private_msg(user_id=event.user_id,message="没有这种东西")
+                return
     else:
         setuall=None
     if setuall:
