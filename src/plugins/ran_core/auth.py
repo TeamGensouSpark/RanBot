@@ -33,9 +33,12 @@ auth=on_command(cmd="auth",aliases={"授权"},rule=to_me(),priority=1,permission
 async def gotarg(matcher: Matcher,event:MessageEvent,confirm=ArgPlainText("confirm")):
     if confirm == "Y":
         table=jdb.getTable("auth")
-        table["auth_session"].append(exgroupid(event.get_session_id()))
-        jdb.updateTable(table)
-        await auth.finish("授权成功")
+        if exgroupid(event.get_session_id()) in table["auth_session"]:
+            await auth.finish("该会话已授权")
+        else:
+            table["auth_session"].append(exgroupid(event.get_session_id()))
+            jdb.updateTable(table)
+            await auth.finish("授权成功")
     else:
         await auth.finish("已取消")
         
