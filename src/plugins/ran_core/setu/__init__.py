@@ -1,14 +1,14 @@
 import re
 from nonebot import on_regex
 from nonebot.rule import to_me
-from nonebot.adapters.onebot.v11 import Bot, MessageEvent, MessageSegment,GroupMessageEvent
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent, MessageSegment,GroupMessageEvent,ActionFailed
 from nonebot.log import logger
 from nonebot.params import StateParam
 from nonebot.typing import T_State
 
 from .model import GetSetuConfig
 from .setu_core import Setu
-from ..utils import get_config
+from ..utils import get_config,nickname
 
 maxpicnum=get_config("maxpicnum",5)
 
@@ -51,4 +51,10 @@ async def handle(bot: Bot, event: MessageEvent, state: T_State = StateParam()):
     if config_getSetu.toGetNum > maxpicnum:
         await callsetu.finish(f"最大图片数量不能超过{maxpicnum}")
     else:
-        await Setu(event, bot, config_getSetu)
+        try:
+            await Setu(event, bot, config_getSetu)
+        except ActionFailed:
+            if isinstance(event,GroupMessageEvent):
+                await callsetu.finish(MessageSegment.at(event.user_id)+f"图太色了，{nickname}就留着自己看了")
+            else:
+                await callsetu.finish(f"图太色了，{nickname}就留着自己看了")
