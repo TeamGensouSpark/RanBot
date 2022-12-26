@@ -5,6 +5,10 @@ from ...utils import get_config
 from pixivpy_async import AppPixivAPI,PixivClient
 
 pixivToken=get_config("pixivtoken",None)
+httpProxy=get_config("httpproxy",None)
+pixivbypass=get_config("pixivbypass",True)
+#尽量配置HTTP代理，否则容易失败，配置后可以关闭bypass
+
 
 from ..model import FinishSetuData, GetSetuConfig
 
@@ -19,7 +23,7 @@ class Pixiv:
         elif self.config.level == 2:  # all
             if random.choice([True, False]):
                 tags.append("R-18")
-        async with PixivClient(bypass=True) as client:
+        async with PixivClient(bypass=pixivbypass,proxy=httpProxy) as client:
             aapi=AppPixivAPI(client=client)
             await aapi.login(refresh_token=pixivToken)
             data=await aapi.search_illust(
