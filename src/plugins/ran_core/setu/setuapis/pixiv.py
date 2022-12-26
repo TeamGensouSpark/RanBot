@@ -17,7 +17,13 @@ class Pixiv:
     def __init__(self, config: GetSetuConfig):
         self.config = config
 
-    async def get(self):  # p站热度榜
+    async def get(self):
+        tags = self.config.tags.copy()
+        if self.config.level == 1:  # R18 only
+            tags.append("R-18")
+        elif self.config.level == 2:  # all
+            if random.choice([True, False]):
+                tags.append("R-18")
         async with PixivClient(bypass=True) as client:
             aapi=AppPixivAPI(client=client)
             await aapi.login(refresh_token=pixivToken)
