@@ -8,8 +8,8 @@ pixivToken=get_config("pixivtoken",None)
 httpProxy=get_config("httpproxy",None)
 pixivbypass=get_config("pixivbypass",True)
 #尽量配置HTTP代理，否则容易失败，配置后可以关闭bypass
-
-
+#https://github.com/Mikubill/pixivpy-async/blob/master/README.zh-cn.md#%E4%BB%A3%E7%90%86%E8%AF%B4%E6%98%8E
+#最好账户订阅会员，不然图片质量可能,emmmmmm...
 from ..model import FinishSetuData, GetSetuConfig
 
 class Pixiv:
