@@ -14,19 +14,31 @@
 
 ---
 
-W.I.P
+八云蓝（Yakumo Ran）是拥有相当高智力，尤其擅长数学的妖怪，我以她为原型制作了这一款bot，希望能带给各位欢乐。
+
+*果然爱吃油豆腐的妖怪狐狸还是很可爱吧（笑）*
 
 ### 实现功能
 
 ---
 
 + Bot相关
-  + [x] 权限系统，拉黑屏蔽
-  + [x] 懒得写...
+  + [x] 较为完善权限系统
+  + [x] 干净的文件管理
+  + [x] 多种API的setu插件
+  + [x] 网易云点歌卡片支持
+  + [x] 查找东方专辑以及其他专辑支持（doujinstyle）
+  + [x] 乱七八糟的功能（例如占卜）
+  + [ ] 自定义入群欢迎
+  + [ ] 关键词系统
 
 + 命令行相关
-  + [x] 使用终端控制Bot发送消息
-  + [x] 可扩展式命令系统 
+  + [x] 脱离于nonebot的命令系统
+  + [ ] 可扩展自定义命令
+
++ 其他
+  + [x] 懒人式部署方式
+  + [x] 专用的配置bot一些参数的工具（如配置pixiv的refresh_token）
 
 ### 演示
 
@@ -52,7 +64,7 @@ git clone https://github.com/Hecatia-Hell-Workshop/RanBot.git # 下载Bot文件
 
 ```shell
 cd RanBot # 进入文件夹
-python ./setup.py
+python ./setup.py #国内用户请输入 python ./setup.py cn
 python ./boot.py
 ```
 
@@ -76,3 +88,7 @@ python ./boot.py # 启动bot！
 [イメチェン藍しゃま!](https://www.pixiv.net/artworks/96478101) ：标题插画
 
 [CirnoBot](https://github.com/summerkirakira/CirnoBot) ：README模板
+
+[setu-nonebot2](https://github.com/yuban10703/setu-nonebot2) ：setu插件基本框架
+
+以及其他一些提供代码细节参考的项目，这里便不一一列出
