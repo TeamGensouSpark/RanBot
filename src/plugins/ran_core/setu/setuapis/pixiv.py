@@ -1,11 +1,6 @@
-
-from datetime import datetime
-import hashlib
 import random
 import re
 from typing import List
-import traceback
-from nonebot.log import logger
 from ...utils import get_config
 from pixivpy_async import AppPixivAPI,PixivClient
 
@@ -28,7 +23,7 @@ class Pixiv:
             aapi=AppPixivAPI(client=client)
             await aapi.login(refresh_token=pixivToken)
             data=await aapi.search_illust(
-                word=" ".join(self.config.tags),
+                word=" ".join(tags),
                 sort="popular_desc",
                 filter="for_android"
                 )
