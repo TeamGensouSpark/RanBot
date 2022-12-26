@@ -1,21 +1,15 @@
 
+from datetime import datetime
+import hashlib
 import random
 import re
 from typing import List
-
+import traceback
 from nonebot.log import logger
 from ...utils import get_config
-from Remilia.utils.net.pixiv import AioBypass
-from pixivpy_async.sync import AppPixivAPI
+from pixivpy_async import AppPixivAPI,PixivClient
 
 pixivToken=get_config("pixivtoken",None)
-
-def get_token():
-    if pixivToken:
-        return AppPixivAPI(bypass=True).login(refresh_token=pixivToken)["access_token"]
-    else:
-        logger.error("None Pixiv refresh_token to use")
-
 
 from ..model import FinishSetuData, GetSetuConfig
 
@@ -24,48 +18,23 @@ class Pixiv:
         self.config = config
 
     async def get(self):  # p站热度榜
-        accesstoken=get_token()
-        if not accesstoken:
-            return
-        tags = self.config.tags.copy()
-        if self.config.level == 1:  # R18 only
-            tags.append("R-18")
-        elif self.config.level == 2:  # all
-            if random.choice([True, False]):
-                tags.append("R-18")
-        url = "https://app-api.pixiv.net/v1/search/popular-preview/illust"
-        params = {
-            "filter": "for_android",
-            "include_translated_tag_results": "true",
-            "merge_plain_keyword_results": "true",
-            "word": " ".join(tags),
-            "search_target": "partial_match_for_tags",
-        }  # 精确:exact_match_for_tags,部分:partial_match_for_tags
-        headers = pixivToken.headers()
-        headers["Host"] = "app-api.pixiv.net"
-        headers["Authorization"] = "Bearer {}".format(
-            accesstoken
-        )
-        try:
-            async with AioBypass.BypassClient() as client:
-                res = await client.get(url, params=params, headers=headers, timeout=10)
-            data = res.json()
-        except Exception as e:
-            logger.warning("Pixiv热度榜获取失败~:\r\n{}".format(e))
-            return []
-        else:
-            if res.status_code == 200:
-                data_finally = self.process_data(data)
-                if len(data_finally) <= self.config.toGetNum - self.config.doneNum:
-                    return data_finally
-                else:
-                    return random.sample(
-                        self.process_data(data),
-                        self.config.toGetNum - self.config.doneNum,
-                    )
+        async with PixivClient(bypass=True) as client:
+            aapi=AppPixivAPI(client=client)
+            await aapi.login(refresh_token=pixivToken)
+            data=await aapi.search_illust(
+                word=" ".join(self.config.tags),
+                sort="popular_desc",
+                filter="for_android"
+                )
+            data_finally = self.process_data(data)
+            if len(data_finally) <= self.config.toGetNum - self.config.doneNum:
+                return data_finally
             else:
-                logger.warning("Pixiv热度榜异常:{}\r\n{}".format(res.status_code, data))
-                return []
+                return random.sample(
+                    self.process_data(data),
+                    self.config.toGetNum - self.config.doneNum,
+                )
+
 
     def buildOriginalUrl(self, original_url: str, page: int) -> str:
         def changePage(matched):

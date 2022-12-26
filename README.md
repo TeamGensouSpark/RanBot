@@ -47,6 +47,15 @@ to do
 ```shell
 git clone https://github.com/Hecatia-Hell-Workshop/RanBot.git # 下载Bot文件
 ```
+
+1.5 使用懒人安装脚本（如果不需要可跳过，否则无需进行以下步骤）
+
+```shell
+cd RanBot # 进入文件夹
+python ./setup.py
+python ./boot.py
+```
+
 2.安装依赖(**强烈建议**使用你喜欢的 Python 环境管理工具创建新的虚拟环境)
 ```shell
 cd RanBot # 进入文件夹
