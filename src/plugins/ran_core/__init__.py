@@ -7,6 +7,7 @@ from . import (
     loghelper,
     API,
     music163,
+    groupmanage,
     )
 
 __all__=[
@@ -18,4 +19,5 @@ __all__=[
     "loghelper",
     "API",
     "music163",
+    "groupmanage",
 ]
