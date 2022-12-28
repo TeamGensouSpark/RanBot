@@ -2,7 +2,8 @@ import random
 import re
 from typing import List
 from ...utils import get_config
-from pixivpy_async import AppPixivAPI,PixivClient
+from Remilia.utils.net.pixiv import PixivClient
+from pixivpy_async import AppPixivAPI
 
 pixivToken=get_config("pixivtoken",None)
 httpProxy=get_config("httpproxy",None)
