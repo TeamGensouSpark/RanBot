@@ -10,21 +10,24 @@ class bot(CommandClass):
         system(f"pip install {plugin_name}")
         f=File("./src/resources/additional_plugins.txt")
         fl=f.text.splitlines()
-        fl.append(plugin_name)
-        f.write("w","\n".join(fl))
+        if plugin_name not in fl:
+            fl.append(plugin_name)
+            f.write("w","\n".join(fl))
     def upgrade(self,plugin_name:str):
         system(f"pip install --upgrade {plugin_name}")
     def uninstall(self,plugin_name:str):
         system(f"pip uninstall {plugin_name}")
         f=File("./src/resources/additional_plugins.txt")
         fl=f.text.splitlines()
-        fl.remove(plugin_name)
-        f.write("w","\n".join(fl))
+        if plugin_name in fl:
+            fl.remove(plugin_name)
+            f.write("w","\n".join(fl))
     def remove(self,plugin_name:str):
         f=File("./src/resources/additional_plugins.txt")
         fl=f.text.splitlines()
-        fl.remove(plugin_name)
-        f.write("w","\n".join(fl))
+        if plugin_name in fl:
+            fl.remove(plugin_name)
+            f.write("w","\n".join(fl))
     def show(self):
         f=File("./src/resources/additional_plugins.txt")
         print(" · "+"\n · ".join(f.text.splitlines()))
