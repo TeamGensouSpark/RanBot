@@ -1,10 +1,8 @@
-from libs import ran_utils
-from multiprocessing import Process
-import os
-import importlib
-
 if __name__ == "__main__":
-    
+    from libs import ran_utils
+    from multiprocessing import Process
+    import os
+    import importlib    
     for path,name in zip(["./libs/ext/"+_ for _ in os.listdir("libs/ext")],[_ for _ in os.listdir("libs/ext")]):
         importlib.import_module(f".ext.{name}",package="libs")
         print(f"import ext: {path} as {name} success")

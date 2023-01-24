@@ -35,6 +35,7 @@
 + 命令行相关
   + [x] 脱离于nonebot的命令系统
   + [x] 可扩展自定义命令
+  + [x] 方便快捷的插件安装方式
 
 + 其他
   + [x] 懒人式部署方式
@@ -80,6 +81,26 @@ pip install -r requirements.txt # 安装python依赖
 ```shell
 python ./boot.py # 启动bot！
 ```
+
+### FAQ (Frequently Asked Questions)
+
+#### 安装插件(需使用`python ./boot.py`启动)
+
+```shell
+bot install <插件名称>
+```
+
+#### Bot不理我怎么办
+
+ - 配置.env.prod修改超级用户
+
+```env
+`SUPERUSERS=["你的QQ号1","你的QQ号2","...以此类推"]`
+```
+
+ - 向运行中的bot发送`授权`，然后输入`Y`进行确认，便可获取当前会话的权限
+
+
 
 ### 感谢项目
 
