@@ -4,7 +4,7 @@ from nonebot.rule import to_me
 from nonebot.matcher import Matcher
 from nonebot.params import CommandArg,ArgPlainText,Arg
 from nonebot.permission import SUPERUSER
-from .env import jdb
+from ..ran_utils.env import jdb
 
 if not jdb.hasTable("groupwelcome"):
     jdb.createTable("groupwelcome")

@@ -4,8 +4,11 @@ from nonebot.rule import to_me
 from nonebot.params import ArgPlainText
 from nonebot.matcher import Matcher
 from nonebot.permission import SUPERUSER
-from .env import jdb
-from .utils import exgroupid
+
+from ..ran_utils.env import jdb
+from ..ran_utils.utils import get_session_oid
+
+
 
 
 if not jdb.hasTable("auth"):
@@ -13,8 +16,9 @@ if not jdb.hasTable("auth"):
     jdb.getTable("auth").setkey("auth_session",[]).setkey("userblock",[]).sync()
 
 
+
 async def checkauth(event:MessageEvent):
-    return exgroupid(event.get_session_id()) not in jdb.getTable("auth")["auth_session"]
+    return get_session_oid(event) not in jdb.getTable("auth")["auth_session"]
 
 async def checkblock(event:MessageEvent):
     return event.get_user_id() in jdb.getTable("auth")["userblock"]
@@ -33,10 +37,10 @@ auth=on_command(cmd="auth",aliases={"授权"},rule=to_me(),priority=1,permission
 async def gotarg(matcher: Matcher,event:MessageEvent,confirm=ArgPlainText("confirm")):
     if confirm == "Y":
         table=jdb.getTable("auth")
-        if exgroupid(event.get_session_id()) in table["auth_session"]:
+        if get_session_oid(event) in table["auth_session"]:
             await auth.finish("该会话已授权")
         else:
-            table["auth_session"].append(exgroupid(event.get_session_id()))
+            table["auth_session"].append(get_session_oid(event))
             jdb.updateTable(table)
             await auth.finish("授权成功")
     else:
@@ -54,6 +58,6 @@ unauth=on_command(cmd="unauth",aliases={"取消授权"},rule=to_me(),priority=1,
 @unauth.handle()
 async def gotarg(matcher: Matcher,event:MessageEvent):
     table=jdb.getTable("auth")
-    table["auth_session"].remove(exgroupid(event.get_session_id()))
+    table["auth_session"].remove(get_session_oid(event))
     jdb.updateTable(table)
     await auth.finish("已成功取消") 

@@ -4,7 +4,7 @@ from typing import List
 
 from .model import GetSetuConfig,FinishSetuData
 from .setuapis import Yuban,Lolicon,Pixiv
-from ..utils import get_config,custom_forward_msg
+from ...ran_utils.utils import get_config,custom_forward_msg
 
 
 

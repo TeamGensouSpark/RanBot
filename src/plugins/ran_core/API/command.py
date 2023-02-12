@@ -1,4 +1,4 @@
-from ..env import app,bot
+from ...ran_utils.env import app,bot
 from pydantic import BaseModel
 from fastapi import Response
 from nonebot.adapters.onebot.v11 import Bot

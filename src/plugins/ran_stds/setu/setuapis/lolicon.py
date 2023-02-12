@@ -3,7 +3,7 @@ from typing import List
 from nonebot.log import logger
 
 from ..model import FinishSetuData, GetSetuConfig
-from ...utils import get_config
+from ....ran_utils.utils import get_config
 nginxproxy=get_config("nginxproxy","i.pixiv.re")
 
 class Lolicon:

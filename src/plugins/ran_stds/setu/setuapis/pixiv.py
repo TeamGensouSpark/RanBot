@@ -1,7 +1,7 @@
 import random
 import re
 from typing import List
-from ...utils import get_config
+from ....ran_utils.utils import get_config
 from Remilia.utils.net.pixiv import PixivClient
 from pixivpy_async import AppPixivAPI
 

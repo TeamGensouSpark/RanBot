@@ -7,7 +7,8 @@ from nonebot.adapters.onebot.v11 import MessageSegment
 from nonebot.log import logger
 import aiohttp
 from json import loads
-from .env import music163api,realip,verify_ssl
+from ..ran_utils.env import music163api,realip,verify_ssl
+
 conn=aiohttp.TCPConnector(verify_ssl=verify_ssl)
 picksong=on_command("picksong",aliases={"点歌"},rule=to_me(),priority=5)
 #https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=vercel-%e9%83%a8%e7%bd%b2

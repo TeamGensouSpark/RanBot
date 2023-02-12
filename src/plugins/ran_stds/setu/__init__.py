@@ -8,7 +8,7 @@ from nonebot.typing import T_State
 
 from .model import GetSetuConfig
 from .setu_core import Setu
-from ..utils import get_config,nickname
+from ...ran_utils.utils import get_config,nickname
 
 maxpicnum=get_config("maxpicnum",5)
 

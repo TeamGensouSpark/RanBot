@@ -153,3 +153,4 @@ go-cqhttp_windows_386.exe
 accounts
 src/resources/ran_core/botdb.json
 src/resources/additional_plugins.txt
+.env.prod

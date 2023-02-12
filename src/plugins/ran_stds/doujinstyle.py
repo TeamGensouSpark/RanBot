@@ -8,8 +8,8 @@ from nonebot.adapters.onebot.v11 import MessageSegment,MessageEvent
 import aiohttp,re,json,os
 from urllib.parse import quote
 from lxml.html import fromstring
-from .env import jdb
-from .utils import getex_session_id
+from ..ran_utils.env import jdb
+from ..ran_utils.utils import get_session_oid
 
 if not jdb.hasTable("doujinstyle"):
     jdb.createTable("doujinstyle")
@@ -35,7 +35,7 @@ async def djstylehandle(event:MessageEvent,match:Matcher,args:Message=CommandArg
             table=jdb.getTable("doujinstyle")
             table.setAutoSync(True)
             cache=table.getkey("cache")
-            cache.update({getex_session_id(event):result})
+            cache.update({get_session_oid(event):result})
             table.setkey("cache",cache)
             await djstyle.send("\n".join(fin))
             await djstyle.finish("使用'获取专辑 序号'来获取专辑吧")
@@ -46,10 +46,10 @@ getabm=on_command("getalbum",aliases={"获取专辑"},rule=to_me(),priority=5)
 @getabm.handle()
 async def gabmhandle(event:MessageEvent,match:Matcher,args:Message=CommandArg()):
     cache:dict=jdb.getTable("doujinstyle").getkey("cache")
-    if not cache.__contains__(getex_session_id(event)):
+    if not cache.__contains__(get_session_oid(event)):
         await getabm.finish("缓存中暂无任何专辑,使用'获取专辑'来获取")
     else:
-        resdict=cache[getex_session_id(event)]
+        resdict=cache[get_session_oid(event)]
         try:
             args=int(args.extract_plain_text())
             result=resdict[args-1]
@@ -63,10 +63,10 @@ nowabm=on_command("nowalbum",aliases={"当前专辑"},rule=to_me(),priority=5)
 @nowabm.handle()
 async def nabmhandle(event:MessageEvent,match:Matcher,args:Message=CommandArg()):
     cache:dict=jdb.getTable("doujinstyle").getkey("cache")
-    if not cache.__contains__(getex_session_id(event)):
+    if not cache.__contains__(get_session_oid(event)):
         await getabm.finish("缓存中暂无任何专辑,使用'获取专辑'来获取")
     else:
-        resdict=cache[getex_session_id(event)]
+        resdict=cache[get_session_oid(event)]
         fin=["%s. %s —— %s"%(index,resultn["name"],resultn["artist"]) for index,resultn in zip(range(1,len(resdict)+1),resdict)]
         await nowabm.finish(fin)
         
