@@ -2,10 +2,11 @@ if __name__ == "__main__":
     from libs import ran_utils
     from multiprocessing import Process
     import os
-    import importlib    
+    import importlib
+    from colorama import Fore
     for path,name in zip(["./libs/ext/"+_ for _ in os.listdir("libs/ext")],[_ for _ in os.listdir("libs/ext")]):
         importlib.import_module(f".ext.{name}",package="libs")
-        print(f"import ext: {path} as {name} success")
+        print(f"[ Boot ]{Fore.LIGHTGREEN_EX}import ext: {Fore.LIGHTRED_EX+path} {Fore.LIGHTGREEN_EX}as {Fore.LIGHTRED_EX+name} {Fore.LIGHTGREEN_EX}success")
 
     botProcess=Process(target=ran_utils.process_handle.Process,args=("nb run",))
     botProcess.start()

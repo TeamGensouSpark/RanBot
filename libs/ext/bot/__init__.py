@@ -6,15 +6,21 @@ from os import system
 
 @InjectClass(Command_parser)
 class bot(CommandClass):
-    def install(self,plugin_name:str):
-        system(f"pip install {plugin_name}")
+    def install(self,plugin_name:str,source:str=""):
+        if source:
+            system(f"pip install {plugin_name} -i {source}")
+        else:
+            system(f"pip install {plugin_name}")
         f=File("./src/resources/additional_plugins.txt")
         fl=f.text.splitlines()
         if plugin_name not in fl:
             fl.append(plugin_name)
             f.write("w","\n".join(fl))
-    def upgrade(self,plugin_name:str):
-        system(f"pip install --upgrade {plugin_name}")
+    def upgrade(self,plugin_name:str,source:str=""):
+        if source:
+            system(f"pip install --upgrade {plugin_name} -i {source}")
+        else:
+            system(f"pip install --upgrade {plugin_name}")
     def uninstall(self,plugin_name:str):
         system(f"pip uninstall {plugin_name}")
         f=File("./src/resources/additional_plugins.txt")
