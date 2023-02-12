@@ -139,18 +139,16 @@ dmypy.json
 .pytype/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
-.env.dev
-.env.prod
 config.yml
 go-cqhttp.bat
 device.json
-go-cqhttp.exe
 session.token
 data
-
-go-cqhttp_windows_386.exe
-.env.dev
 accounts
+
 src/resources/ran_core/botdb.json
 src/resources/additional_plugins.txt
-.env.prod
+
+*.env.prod
+*.env.dev
+*.exe
