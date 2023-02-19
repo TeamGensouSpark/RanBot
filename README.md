@@ -33,7 +33,7 @@
   + [ ] 关键词系统
 
 + 命令行相关
-  + [x] 脱离于nonebot的命令系统
+  + [x] 脱离于nonebot的命令系统 <small>*~~本来想用curse弄一个，结果处理不好输出，将就用一下罢~~*</small>
   + [x] 可扩展自定义命令
   + [x] 方便快捷的插件安装方式
 
@@ -108,8 +108,12 @@ bot install <插件名称>
 
 [イメチェン藍しゃま!](https://www.pixiv.net/artworks/96478101) ：标题插画
 
+[nonbot2](https://github.com/nonebot/nonebot2)：NoneBot2框架
+
 [CirnoBot](https://github.com/summerkirakira/CirnoBot) ：README模板
 
 [setu-nonebot2](https://github.com/yuban10703/setu-nonebot2) ：setu插件基本框架
+
+[zhenxun_bot](https://github.com/HibiKier/zhenxun_bot) ：~~一顿狠抄~~
 
 以及其他一些提供代码细节参考的项目，这里便不一一列出

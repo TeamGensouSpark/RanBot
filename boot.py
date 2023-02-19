@@ -4,11 +4,13 @@ if __name__ == "__main__":
     import os
     import importlib
     from colorama import Fore
+    from Remilia.utils.cli.prompts import InputPrompt
+    from Remilia.utils.cli.utils import default_style
     for path,name in zip(["./libs/ext/"+_ for _ in os.listdir("libs/ext")],[_ for _ in os.listdir("libs/ext")]):
         importlib.import_module(f".ext.{name}",package="libs")
         print(f"[ Boot ]{Fore.LIGHTGREEN_EX}import ext: {Fore.LIGHTRED_EX+path} {Fore.LIGHTGREEN_EX}as {Fore.LIGHTRED_EX+name} {Fore.LIGHTGREEN_EX}success")
 
-    botProcess=Process(target=ran_utils.process_handle.Process,args=("nb run",))
+    botProcess=Process(target=ran_utils.process_handle.BotRunner,args=("nb run",))
     botProcess.start()
     ran_utils.commands.BOT_PROCESS=botProcess
     while True:
@@ -19,4 +21,4 @@ if __name__ == "__main__":
             pass
 
     while True:
-        ran_utils.commands.Command_parser(input())
+        ran_utils.commands.Command_parser(InputPrompt("boot@command:","").prompt(style=default_style))

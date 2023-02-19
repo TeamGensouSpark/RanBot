@@ -4,3 +4,4 @@ lxml
 nb-cli
 nonebot-adapter-onebot
 pixivpy-async
+

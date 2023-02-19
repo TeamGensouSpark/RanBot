@@ -58,6 +58,9 @@ unauth=on_command(cmd="unauth",aliases={"取消授权"},rule=to_me(),priority=1,
 @unauth.handle()
 async def gotarg(matcher: Matcher,event:MessageEvent):
     table=jdb.getTable("auth")
-    table["auth_session"].remove(get_session_oid(event))
-    jdb.updateTable(table)
-    await auth.finish("已成功取消") 
+    try:
+        table["auth_session"].remove(get_session_oid(event))
+        jdb.updateTable(table)
+        await auth.finish("已成功取消")
+    except:
+        await auth.finish("未在授权列表内")
