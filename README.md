@@ -106,8 +106,6 @@ bot install <插件名称>
 
 ---
 
-[イメチェン藍しゃま!](https://www.pixiv.net/artworks/96478101) ：标题插画
-
 [nonbot2](https://github.com/nonebot/nonebot2)：NoneBot2框架
 
 [CirnoBot](https://github.com/summerkirakira/CirnoBot) ：README模板
