@@ -24,7 +24,7 @@ app = nonebot.get_asgi()
 
 driver = nonebot.get_driver()
 driver.register_adapter(ONEBOT_V11Adapter)
-nonebot.load_plugins("src/plugins")
+nonebot.load_from_toml("pyproject.toml")
 for _ in addplglist:
     nonebot.load_plugin(_)
 #nonebot.load_from_toml("pyproject.toml")

@@ -12,11 +12,14 @@ except Exception as e:
     print("必要组件未安装")
     if mode=="cn":
         os.system("pip install Remilia -i https://pypi.tuna.tsinghua.edu.cn/simple")
+        os.system("pip install prompt_tookit --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple")
     else:
         if input("是否使用国内镜像源(y/x)") == "y":
             os.system("pip install Remilia -i https://pypi.tuna.tsinghua.edu.cn/simple")
+            os.system("pip install prompt_tookit --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple")
         else:
             os.system("pip install Remilia")
+            os.system("pip install prompt_tookit --upgrade")
     input("安装完成，请重启该程序")
     exit()
 import os

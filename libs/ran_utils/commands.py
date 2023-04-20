@@ -4,7 +4,7 @@ import multiprocessing
 from Remilia.jsondb.db import JsonDB,File
 from .env import jdbpath,botcfg
 import requests
-from Remilia.lite.LiteFunctions import typedet
+from Remilia.lite.utils import typedet
 BOT_PROCESS:multiprocessing.Process
 class CommandClass:
     def __init__(self,command=None,*args,**kwargs) -> None:

@@ -152,3 +152,4 @@ src/resources/additional_plugins.txt
 *.env.prod
 *.env.dev
 *.exe
+impl

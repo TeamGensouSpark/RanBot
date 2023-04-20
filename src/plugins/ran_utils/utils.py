@@ -14,8 +14,11 @@ def get_config(configname:str,default:any):
     
 nickname=get_config("nickname","bot")
 if isinstance(nickname,set):
-    nickname=list(nickname)[0]
-    
+    try:
+        nickname=list(nickname)[0]
+    except:
+        nickname=nickname
+
 def get_session_oid(event:MessageEvent):
     return event.user_id if isinstance(event,PrivateMessageEvent) else event.group_id
     
