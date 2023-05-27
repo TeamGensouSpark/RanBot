@@ -58,7 +58,7 @@ to do
 1.下载Bot本体
 
 ```shell
-git clone https://github.com/Hecatia-Hell-Workshop/RanBot.git # 下载Bot文件
+git clone https://github.com/TeamGensouSpark/RanBot.git # 下载Bot文件
 ```
 
 1.5 使用懒人安装脚本（如果不需要可跳过，否则无需进行以下步骤）
