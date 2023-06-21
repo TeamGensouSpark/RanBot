@@ -1,4 +1,3 @@
-import re
 from typing import List, Union
 from nonebot.adapters.onebot.v11 import MessageEvent,Message,PrivateMessageEvent
 from nonebot import get_driver

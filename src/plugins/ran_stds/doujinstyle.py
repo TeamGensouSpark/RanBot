@@ -2,18 +2,18 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.matcher import Matcher
 from nonebot.adapters import Message
-from nonebot.params import Arg, CommandArg, ArgPlainText
+from nonebot.params import CommandArg
 from nonebot.log import logger
 from nonebot.adapters.onebot.v11 import MessageSegment,MessageEvent
-import aiohttp,re,json,os
+import aiohttp,re
 from urllib.parse import quote
 from lxml.html import fromstring
-from ..ran_utils.env import jdb
+from ..ran_utils.env import db
 from ..ran_utils.utils import get_session_oid
 
-if not jdb.hasTable("doujinstyle"):
-    jdb.createTable("doujinstyle")
-    jdb.getTable("doujinstyle").setkey("cache",{}).sync()
+ddb=db.getc("doujinstyle").writedict("cache",{})
+
+
 
 
 djstyle_site="https://doujinstyle.com"
@@ -32,11 +32,7 @@ async def djstylehandle(event:MessageEvent,match:Matcher,args:Message=CommandArg
             djstyle.finish("没有找到符合条件的专辑")
         else:
             fin=["%s. %s —— %s"%(index,resultn["name"],resultn["artist"]) for index,resultn in zip(range(1,len(result)+1),result)]
-            table=jdb.getTable("doujinstyle")
-            table.setAutoSync(True)
-            cache=table.getkey("cache")
-            cache.update({get_session_oid(event):result})
-            table.setkey("cache",cache)
+            ddb.writekv("cache",get_session_oid(event),result)
             await djstyle.send("\n".join(fin))
             await djstyle.finish("使用'获取专辑 序号'来获取专辑吧")
     else:
@@ -45,7 +41,7 @@ async def djstylehandle(event:MessageEvent,match:Matcher,args:Message=CommandArg
 getabm=on_command("getalbum",aliases={"获取专辑"},rule=to_me(),priority=5)
 @getabm.handle()
 async def gabmhandle(event:MessageEvent,match:Matcher,args:Message=CommandArg()):
-    cache:dict=jdb.getTable("doujinstyle").getkey("cache")
+    cache:dict=ddb.readdict("cache")
     if not cache.__contains__(get_session_oid(event)):
         await getabm.finish("缓存中暂无任何专辑,使用'获取专辑'来获取")
     else:
@@ -62,7 +58,7 @@ async def gabmhandle(event:MessageEvent,match:Matcher,args:Message=CommandArg())
 nowabm=on_command("nowalbum",aliases={"当前专辑"},rule=to_me(),priority=5)
 @nowabm.handle()
 async def nabmhandle(event:MessageEvent,match:Matcher,args:Message=CommandArg()):
-    cache:dict=jdb.getTable("doujinstyle").getkey("cache")
+    cache:dict=ddb.readdict("cache")
     if not cache.__contains__(get_session_oid(event)):
         await getabm.finish("缓存中暂无任何专辑,使用'获取专辑'来获取")
     else:

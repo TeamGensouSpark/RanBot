@@ -1,10 +1,9 @@
 import os,json
 from signal import SIGINT,SIGILL
 import multiprocessing
-from Remilia.jsondb.db import JsonDB,File
 from .env import jdbpath,botcfg
 import requests
-from Remilia.lite.utils import typedet
+from Remilia.base.rtypes import typedet
 BOT_PROCESS:multiprocessing.Process
 class CommandClass:
     def __init__(self,command=None,*args,**kwargs) -> None:
@@ -71,19 +70,6 @@ class Command_parser(CommandClass):
             rep=requests.post(url,data=json.dumps(data))
         print(rep.text)
         
-    class jdb(CommandClass):
-        def __init__(self, command=None, *args, **kwargs) -> None:
-            self._jdb=JsonDB(File(jdbpath),None)
-            super().__init__(command, *args, **kwargs)
-        def create(self,tablename:str):
-            self._jdb.createTable(tablename)
-            print(f"create table '{tablename}' success")
-        def listtable(self):
-            print("\n".join([' · '+_ for _ in self._jdb.listTable()]))
-        def read(self,tablename:str,key:str):
-            print(self._jdb.getTable(tablename).getkey(key))
-        def __selfdesc__() -> str:
-            return "a command to operate jsondb(the bot db)"
     class qq(CommandClass):
         def sendgroup(self,groupid,message):
             api="http://"+str(botcfg.host)+":"+str(botcfg.port)+"/ranbot/api/command/send"

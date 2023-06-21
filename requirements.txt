@@ -1,7 +1,0 @@
-Remilia
-nonebot2[fastapi]
-aiohttp
-lxml
-nb-cli
-nonebot-adapter-onebot
-pixivpy-async

@@ -153,3 +153,5 @@ src/resources/additional_plugins.txt
 *.env.dev
 *.exe
 impl
+botdata
+.pdm-python

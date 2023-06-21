@@ -1,9 +1,23 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 [project]
 name = "RanBot"
 version = "0.1.0"
 description = "RanBot"
 readme = "README.md"
 requires-python = ">=3.8, <4.0"
+dependencies = [
+"Remilia",
+"nonebot2[fastapi]",
+"aiohttp",
+"lxml",
+"nb-cli",
+"nonebot-adapter-onebot",
+"pixivpy-async",
+"setuptools",
+]
 
 [tool.nonebot]
 adapters = [
