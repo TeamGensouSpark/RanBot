@@ -1,0 +1,1 @@
+Invoke-Expression (pdm venv activate)
