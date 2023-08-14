@@ -6,11 +6,12 @@ from nonebot.permission import SUPERUSER
 from nonebot.rule import to_me
 
 PERMISSION = CateRanCore.getTable("PERMISSION")
+print(PERMISSION.getFile().text)
 when(not PERMISSION.hasKey("whitelist"), lambda: PERMISSION.writeKV("whitelist", []))
 when(not PERMISSION.hasKey("blacklist"), lambda: PERMISSION.writeKV("blacklist", []))
 
 
-def blockRuler(msge: MessageEvent):
+async def blockRuler(msge: MessageEvent):
     if msge.get_session_id() in PERMISSION.readValue(
         "whitelist"
     ) and msge.get_session_id() not in PERMISSION.readValue("blacklist"):
@@ -19,13 +20,12 @@ def blockRuler(msge: MessageEvent):
         return True
 
 
-_Invoke = on_message(priority=2, block=True)
+_Invoke = on_message(priority=2, rule=blockRuler, block=True)
 
 
 @_Invoke.handle()
-async def _(msge: MessageEvent):
-    if blockRuler(msge):
-        _Invoke.stop_propagation(_Invoke)
+async def _():
+    pass
 
 
 auth = on_command(

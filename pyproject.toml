@@ -9,7 +9,7 @@ description = "RanBot"
 readme = "README.md"
 requires-python = ">=3.8, <4.0"
 dependencies = [
-    "Remilia[all]==1.2.2",
+    "Remilia[all]==1.2.2.1",
     "nonebot2[fastapi]",
     "aiohttp",
     "lxml",
