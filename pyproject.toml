@@ -9,20 +9,20 @@ description = "RanBot"
 readme = "README.md"
 requires-python = ">=3.8, <4.0"
 dependencies = [
-"Remilia",
-"nonebot2[fastapi]",
-"aiohttp",
-"lxml",
-"nb-cli",
-"nonebot-adapter-onebot",
-"pixivpy-async",
-"setuptools",
+    "Remilia[all]==1.2.2",
+    "nonebot2[fastapi]",
+    "aiohttp",
+    "lxml",
+    "nb-cli",
+    "nonebot-adapter-onebot",
+    "pixivpy-async",
+    "setuptools",
 ]
 
 [tool.nonebot]
 adapters = [
-    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" }
+    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
 ]
 plugins = []
-plugin_dirs = ["src/plugins"]
+plugin_dirs = ["src/RanBot/plugins"]
 builtin_plugins = []
