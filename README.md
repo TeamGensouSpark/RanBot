@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/nonebot-2-red" alt="nonebot">
 </div>
 
-### 蓝Bot
+### 八云蓝 🦊
 
 ---
 
@@ -15,13 +15,13 @@
 
 *果然爱吃油豆腐的妖怪狐狸还是很可爱吧（笑）*
 
-### 实现功能
+### 实现功能 ✨
 
 ---
 
-重写中......
+🚧 重写中......
 
-### 演示
+### 演示 ▶️
 
 ---
 
@@ -32,53 +32,88 @@ to do
 
 </details>
 
-### 快速部署
+### 快速部署 🚀
 
 ---
 
-1. 下载Bot本体
+1. 下载Bot本体 🚥
 
 ```shell
 git clone https://github.com/TeamGensouSpark/RanBot.git # 下载Bot文件
 ```
 
-2. 安装虚拟环境（PDM）以及依赖
+2. 安装虚拟环境以及依赖 📖
 
-```shell
+#### Windows 🪟
+
+```powershell
 cd RanBot # 进入文件夹
-./setup.bat
+./setup.ps1
 ```
 
-3. 添加插件（例子）
+#### Linux 🐧
 
-```shell
-pdm run nb install nonebot_plugin_gocqhttp
+```bash
+python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+pip install pdm -i https://pypi.tuna.tsinghua.edu.cn/simple
+pdm config pypi.url https://pypi.tuna.tsinghua.edu.cn/simple
+pdm install
+eval $(pdm venv activate)
+python -m ensurepip
+python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-4. 添加超管
+3. 进入虚拟环境 ⚙️
 
-+ 在Bot目录下新建.env文件，写入`ENVIRONMENT=prod`
-+ 新建.env.prod文件，写入`SUPERUSERS=["超管QQ"]`
+#### Windows 🪟
 
-5. 启动！
+```powershell
+./virtualshell.ps1 
+# 手动进入 Invoke-Expression (pdm venv activate)
+```
+
+#### Linux 🐧
+
+```bash
+eval $(pdm venv activate)
+```
+
+4. 添加插件 💡
+
+参考`nb-cli`用法
 
 ```shell
-./run.bat
+nb install <插件名称>
+```
+
+5. 配置环境变量 🔧
+
++ 在Bot目录下新建.env文件
+
+```python
+PORT=8088 #连接端口号
+
+SUPERUSERS=["123456"] #超管
+NICKNAME=["koishi"] #bot名称
+COMMAND_START=["/", ""]
+COMMAND_SEP=["."]
+```
+
+6. 启动 🎉
+
+记得先进入虚拟环境
+
+```shell
+nb run
 ```
 
 ### FAQ (Frequently Asked Questions)
 
-#### 安装插件(需使用`python ./boot.py`启动)
-
-```shell
-bot install <插件名称>
-```
-
 #### Bot不理我怎么办
 
 + 按照上方方法添加超管
-
-+ 在你需要授权的会话中向运行中的bot发送`授权`，然后输入`Y`进行确认，便可获取当前会话的权限
++ 在你需要授权的会话中向运行中的bot发送`授权`，便可获取当前会话的权限
 
 ### 感谢项目
 

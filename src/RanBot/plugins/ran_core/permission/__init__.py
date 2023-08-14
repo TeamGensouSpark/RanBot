@@ -6,7 +6,6 @@ from nonebot.permission import SUPERUSER
 from nonebot.rule import to_me
 
 PERMISSION = CateRanCore.getTable("PERMISSION")
-print(PERMISSION.getFile().text)
 when(not PERMISSION.hasKey("whitelist"), lambda: PERMISSION.writeKV("whitelist", []))
 when(not PERMISSION.hasKey("blacklist"), lambda: PERMISSION.writeKV("blacklist", []))
 
