@@ -146,8 +146,7 @@ session.token
 data
 accounts
 
-src/resources/ran_core/botdb.json
-src/resources/additional_plugins.txt
+src/RanBot/resources/*
 
 *.env.prod
 *.env.dev
