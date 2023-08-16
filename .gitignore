@@ -154,3 +154,5 @@ src/RanBot/resources/*
 impl
 botdata
 .pdm-python
+
+ignore/*

@@ -1,3 +1,3 @@
-from . import touhou
+from . import touhou,dailysign
 
-__all__ = ["touhou"]
+__all__ = ["touhou","dailysign"]

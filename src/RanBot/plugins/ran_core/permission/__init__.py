@@ -1,5 +1,5 @@
 from RanLib.database import CateRanCore
-from RanLib.event import MessageEvent
+from RanLib.event import MessageEvent, genSessionUUID
 from Remilia.fancy import when
 from nonebot import on_message, on_command
 from nonebot.permission import SUPERUSER
@@ -11,12 +11,9 @@ when(not PERMISSION.hasKey("blacklist"), lambda: PERMISSION.writeKV("blacklist",
 
 
 async def blockRuler(msge: MessageEvent):
-    if msge.get_session_id() in PERMISSION.readValue(
+    return genSessionUUID(msge) not in PERMISSION.readValue(
         "whitelist"
-    ) and msge.get_session_id() not in PERMISSION.readValue("blacklist"):
-        return False
-    else:
-        return True
+    ) or genSessionUUID(msge) in PERMISSION.readValue("blacklist")
 
 
 _Invoke = on_message(priority=2, rule=blockRuler, block=True)
@@ -38,7 +35,7 @@ unauth = on_command(
 @auth.handle()
 async def auth_handle(msge: MessageEvent):
     wl = PERMISSION.readValue("whitelist")
-    sid = msge.get_session_id()
+    sid = genSessionUUID(msge)
     if sid not in wl:
         wl.append(sid)
         PERMISSION.writeKV("whitelist", wl)
@@ -47,10 +44,11 @@ async def auth_handle(msge: MessageEvent):
         await auth.finish("该会话已授权😅")
 
 
+
 @unauth.handle()
 async def unauth_handle(msge: MessageEvent):
     wl = PERMISSION.readValue("whitelist")
-    sid = msge.get_session_id()
+    sid = genSessionUUID(msge)
     if sid in wl:
         wl.remove(sid)
         PERMISSION.writeKV("whitelist", wl)
@@ -59,14 +57,18 @@ async def unauth_handle(msge: MessageEvent):
         await auth.finish("该会话未授权😅")
 
 
-deny = on_command("deny", aliases={"拉黑"}, permission=SUPERUSER, rule=to_me())
-undeny = on_command("undeny", aliases={"取消拉黑"}, permission=SUPERUSER, rule=to_me())
+deny = on_command(
+    "deny", aliases={"拉黑"}, priority=1, permission=SUPERUSER, rule=to_me()
+)
+undeny = on_command(
+    "undeny", aliases={"取消拉黑"}, priority=1, permission=SUPERUSER, rule=to_me()
+)
 
 
 @deny.handle()
 async def deny_handle(msge: MessageEvent):
     bl = PERMISSION.readValue("blacklist")
-    sid = msge.get_session_id()
+    sid = genSessionUUID(msge)
     if sid not in bl:
         bl.append(sid)
         PERMISSION.writeKV("blacklist", bl)
@@ -78,7 +80,7 @@ async def deny_handle(msge: MessageEvent):
 @undeny.handle()
 async def undeny_handle(msge: MessageEvent):
     bl = PERMISSION.readValue("blacklist")
-    sid = msge.get_session_id()
+    sid = genSessionUUID(msge)
     if sid in bl:
         bl.remove(sid)
         PERMISSION.writeKV("blacklist", bl)
