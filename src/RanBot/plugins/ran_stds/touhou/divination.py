@@ -83,7 +83,8 @@ introduce = """
 """
 from nonebot import on_command
 from nonebot.rule import to_me
-from RanLib.event import MessageEvent, MessageSegment, Message
+from nonebot.adapters import Message
+from RanLib.event import MessageEvent, MessageSegment
 import random, time
 
 divination = on_command(

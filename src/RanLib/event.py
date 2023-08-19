@@ -4,12 +4,10 @@ if True:
     from nonebot.adapters.onebot.v11 import (
         MessageEvent as OBV11_MessageEvent,
         MessageSegment as OBV11_MessageSegment,
-        Message as OBV11_Message,
         GroupMessageEvent as OBV11_GroupMessageEvent,
     )
 
 MessageEvent = OBV11_MessageEvent
-Message = OBV11_Message
 MessageSegment = OBV11_MessageSegment
 GroupMessageEvent = OBV11_GroupMessageEvent
 

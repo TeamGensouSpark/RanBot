@@ -26,7 +26,7 @@ async def daysignhandle(msge: MessageEvent):
         if is_same_day(info["last"], datetime.now().timestamp()):
             await daysign.finish("你今天已经签过了😅")
         else:
-            info.update("keep", info["keep"] + 1)
+            info.update({"keep": info["keep"] + 1})
     else:
         info = {"last": datetime.now().timestamp(), "keep": 1}
     DAYSIGN.writeKV(user_id, info)
@@ -39,7 +39,7 @@ async def daysignhandle(msge: MessageEvent):
                     .concat("# 签到 🥰")
                     .newline.newline.concat("---")
                     .newline.newline.concat(
-                        "%s，您已经连续签到%s天🎉" % (msge.get_user_id(), info["keep"])
+                        "%s，您总计签到%s天🎉" % (msge.get_user_id(), info["keep"])
                     )
                 ),
                 isdark=True,

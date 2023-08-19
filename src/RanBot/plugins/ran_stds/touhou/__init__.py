@@ -1,3 +1,3 @@
-from . import divination
+from . import divination, thb, doujinstyle
 
-__all__ = ["divination"]
+__all__ = ["divination", "doujinstyle", "thb"]
